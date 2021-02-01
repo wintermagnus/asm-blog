@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Posting } from '../post-list/Posting';
 import { Subject } from 'rxjs'
-import { tap } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,7 @@ export class BlogService {
 
   getPosts() {
     this.http.get<Posting[]>(`${this.baseUrl}/forum/get-postings`)
+    .pipe(delay(500))
       .subscribe((postings) => {
         this.posts = postings;
         this.postUpdated.next([...this.posts]);
@@ -29,7 +30,8 @@ export class BlogService {
   }
 
   getPost(id: number) {
-    return {...this.posts.find(post => post.id === id)};
+    return this.http.get<Posting>(`${this.baseUrl}/forum/get-posting/${id}`)
+      .pipe(delay(500));
   }
 
   getUpdateListener() {
@@ -38,6 +40,7 @@ export class BlogService {
 
   addPost(title: string, content: string) {
     this.http.post(`${this.baseUrl}/forum/publish`, { title: title, content: content })
+      .pipe(delay(500))
       .subscribe((res) => {
         this.posts.push(res as Posting)
         this.postUpdated.next([...this.posts]);
@@ -53,7 +56,9 @@ export class BlogService {
   }
 
   editPost(editedPost: Posting) {
-    return this.http.put(`${this.baseUrl}/forum/edit`, editedPost).pipe(tap(() => {
+    return this.http.put(`${this.baseUrl}/forum/edit`, editedPost).pipe(
+      delay(500),
+      tap(() => {
       this.posts.splice(this.posts.findIndex(post => post.id === editedPost.id), 1, editedPost);
       this.postUpdated.next([...this.posts]);
     }));

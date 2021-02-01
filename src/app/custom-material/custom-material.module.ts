@@ -5,27 +5,23 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+const mat_modules = [
+  CommonModule,
+  MatInputModule,
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatToolbarModule,
+  MatExpansionModule,
+  MatProgressSpinnerModule
+]
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatToolbarModule,
-    MatExpansionModule
-  ],
-  exports: [
-    CommonModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatToolbarModule,
-    MatExpansionModule
-  ]
+  imports: mat_modules,
+  exports: mat_modules
 })
 export class CustomMaterialModule { }

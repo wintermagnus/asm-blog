@@ -10,6 +10,8 @@ import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './post-list/post-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { FormsModule } from '@angular/forms';
     PostCreationComponent,
     HeaderComponent,
     PostListComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
