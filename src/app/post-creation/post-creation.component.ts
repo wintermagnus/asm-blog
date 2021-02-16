@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Posting } from '../post-list/Posting';
+import { Posting } from '../model/Posting';
 import { BlogService } from '../service/blog.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class PostCreationComponent implements OnInit {
 
       } else {
         this.mode = 'create';
-        this.post = new Posting(null,'','');
+        this.post = new Posting(null,'','','',null,null);
         this.postId = null;
       }
     });

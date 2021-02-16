@@ -5,13 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostCreationComponent } from './post-creation/post-creation.component';
-import { CustomMaterialModule } from './custom-material/custom-material.module';
+import { CustomMaterialModule } from './material/custom-material.module';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './post-list/post-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { ErrorCardComponent } from './common/error-card/error-card.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     PostListComponent,
     LoginComponent,
     SignupComponent,
+    ErrorCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

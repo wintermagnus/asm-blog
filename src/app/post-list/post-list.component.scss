@@ -1,8 +1,19 @@
 mat-accordion{
     mat-expansion-panel{
         mat-expansion-panel-header{
-            font-size: large;
-            font-weight: bolder;
+            
+            .title{
+                font-size: large;
+                font-weight: bolder;
+            }
+           
+            .author{
+                font-style: italic;
+            }
+
+            .spacer{
+                width: 3rem;
+            }
         }
     }
 }
