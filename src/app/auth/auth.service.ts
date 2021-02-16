@@ -56,11 +56,22 @@ export class AuthService {
   handleAuthentication(username: string, token: string) {
     const user = new User(username, token);
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
+  }
+
+  autoLogin() {
+    const userData: {username: string, _token: string} = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      return;
+    }
+    const loadedUser = new User(userData.username, userData._token);
+    this.user.next(loadedUser);
   }
 
   logout() {
     this.user.next(null);
-    this.router.navigate(['/'])
+    localStorage.removeItem('userData');
+    this.router.navigate(['/']);
   }
 
 }

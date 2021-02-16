@@ -35,11 +35,12 @@ export class BlogService {
   }
 
   addPost(title: string, content: string) {
-    this.http.post(`${this.baseUrl}/forum/publish`, { title: title, content: content })
-      .subscribe((res) => {
+    return this.http.post(`${this.baseUrl}/forum/publish`, { title: title, content: content })
+    .pipe(
+      tap((res)=> {
         this.posts.push(res as Posting)
         this.postUpdated.next([...this.posts]);
-      })
+    }));
   }
 
   deletePost(id: number) {

@@ -27,14 +27,14 @@ export class PostCreationComponent implements OnInit {
         this.mode = 'edit';
         this.postId = parseInt(paramMap.get('postId'))
         this.isLoading = true;
-        this.blogService.getPost(this.postId).subscribe((postData)=>{
+        this.blogService.getPost(this.postId).subscribe((postData) => {
           this.post = postData;
           this.isLoading = false;
         });
 
       } else {
         this.mode = 'create';
-        this.post = new Posting(null,'','','',null,null);
+        this.post = new Posting(null, '', '', '', null, null);
         this.postId = null;
       }
     });
@@ -46,7 +46,11 @@ export class PostCreationComponent implements OnInit {
     }
     this.isLoading = true
     if (this.mode === 'create') {
-      this.blogService.addPost(form.value.title, form.value.content);
+      this.blogService.addPost(form.value.title, form.value.content)
+        .subscribe(() => {
+          this.isLoading = false;
+          this.router.navigateByUrl('/');
+        });
       form.resetForm();
     } else if (this.mode === 'edit') {
       this.blogService.editPost({
@@ -54,7 +58,8 @@ export class PostCreationComponent implements OnInit {
         title: form.value.title,
         content: form.value.content
       }).subscribe(() => {
-        this.router.navigateByUrl('/')
+        this.isLoading = false;
+        this.router.navigateByUrl('/');
       });
     }
 
